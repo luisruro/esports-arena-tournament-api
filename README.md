@@ -26,6 +26,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Remember you must set up your environment variables before running the project. You will find .env.template file in the respository
+
 ## Project setup
 
 ```bash
@@ -34,6 +36,12 @@ $ npm i --save @nestjs/config
 $ npm install --save @nestjs/typeorm pg
 $ npm i --save class-validator class-transformer
 $ npm install --save @nestjs/swagger
+```
+
+## Project setup with Docker
+
+```bash
+$ docker-compose up -d
 ```
 
 ## Compile and run the project
