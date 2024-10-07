@@ -31,6 +31,7 @@
 ```bash
 $ npm install
 $ npm i --save @nestjs/config
+$ npm install --save @nestjs/typeorm pg
 ```
 
 ## Compile and run the project
