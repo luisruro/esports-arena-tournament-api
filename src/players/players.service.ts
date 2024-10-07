@@ -102,5 +102,10 @@ export class PlayersService {
         if (result.affected === 0) {
             throw new HttpException('Player not found or not deleted', HttpStatus.NOT_FOUND);
         }
+
+        return {
+            message: 'Player restored successfully',
+            playerId: id
+        }
     }
 }
