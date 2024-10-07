@@ -9,6 +9,7 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 export class PlayersService {
     constructor(@InjectRepository(Player) private playerRepository: Repository<Player>) { };
 
+    //This method excludes the players deleted by default
     async findAllPlayers(): Promise<Player[]> {
         const playerFound = await this.playerRepository.find();
 
@@ -63,5 +64,43 @@ export class PlayersService {
         }
 
         return this.playerRepository.update(id, player)
+    }
+
+    async deletePlayer(id: string) {
+        // const playerFound = await this.playerRepository.findOne({
+        //     where: {
+        //         id
+        //     }
+        // });
+        
+        // if (!playerFound) {
+        //     throw new HttpException(`Player with id ${id} not found`, HttpStatus.NOT_FOUND);
+        // }
+        
+        const result = await this.playerRepository.softDelete({id});
+
+        if (result.affected === 0) {
+            throw new HttpException(`Player with id ${id} not found`, HttpStatus.NOT_FOUND);
+        }
+
+        return result;
+    }
+
+    //This method includes the players deleted
+    async findAllPlayersIncludingDeleted(): Promise<Player[]> {
+        const query = await this.playerRepository.createQueryBuilder('player')
+        .withDeleted()
+        .getMany()
+
+        return query;
+    }
+
+    //This method restores a player to active state
+    async restorePlayer(id: string) {
+        const result = await this.playerRepository.restore(id);
+    
+        if (result.affected === 0) {
+            throw new HttpException('Player not found or not deleted', HttpStatus.NOT_FOUND);
+        }
     }
 }

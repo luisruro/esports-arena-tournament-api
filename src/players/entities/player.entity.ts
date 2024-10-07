@@ -19,5 +19,5 @@ export class Player {
 
     //This column to do soft delete
     @DeleteDateColumn()
-    deletedAt: Date;
+    deletedAt?: Date;
 }
