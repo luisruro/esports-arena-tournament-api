@@ -33,6 +33,7 @@ $ npm install
 $ npm i --save @nestjs/config
 $ npm install --save @nestjs/typeorm pg
 $ npm i --save class-validator class-transformer
+$ npm install --save @nestjs/swagger
 ```
 
 ## Compile and run the project
