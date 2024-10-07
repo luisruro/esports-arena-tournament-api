@@ -12,5 +12,5 @@ export class Player {
     email: string;
 
     @Column()
-    age: number;
+    dob: string;
 }
