@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('players')
 export class Player {
@@ -13,4 +13,11 @@ export class Player {
 
     @Column()
     dob: string;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    //This column to do soft delete
+    @DeleteDateColumn()
+    deletedAt: Date;
 }
