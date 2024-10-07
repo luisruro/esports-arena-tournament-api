@@ -6,10 +6,7 @@ export class Player {
     id: string;
 
     @Column()
-    name: string;
-
-    @Column()
-    email: string;
+    nickname: string;
 
     @Column()
     dob: string;
