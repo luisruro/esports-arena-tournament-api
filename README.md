@@ -30,6 +30,7 @@
 
 ```bash
 $ npm install
+$ npm i --save @nestjs/config
 ```
 
 ## Compile and run the project
