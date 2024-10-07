@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configurations from './common/config/configurations';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PlayersModule } from './players/players.module';
 
 
 @Module({
@@ -20,6 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: true,
       }),
     }),
+    PlayersModule,
   ]
 })
 export class AppModule {}
