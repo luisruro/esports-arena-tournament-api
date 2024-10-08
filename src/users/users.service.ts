@@ -25,7 +25,7 @@ export class UsersService {
         const createdUser = this.usersRepository.create(
             {
                 ...createUserDto,
-                rol: roleFound
+                role: roleFound
             }
         );
 
@@ -45,7 +45,7 @@ export class UsersService {
     async findOneByEmailWithPassword(email: string) {
         return await this.usersRepository.findOne({
             where: { email },
-            select: ['id', 'name', 'email', 'password', 'rol', 'creationDate', 'player'],
+            select: ['id', 'name', 'email', 'password', 'role', 'creationDate', 'player'],
         });
     }
 
@@ -95,7 +95,7 @@ export class UsersService {
         //  Updates the user including object Role
         return this.usersRepository.update(id, {
             ...user,
-            rol: roleFound, // Assigning the object Role
+            role: roleFound, // Assigning the object Role
         });
     }
 }

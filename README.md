@@ -27,6 +27,7 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Remember you must set up your environment variables before running the project. You will find .env.template file in the respository
+## You must create the roles first
 
 ## Project setup
 

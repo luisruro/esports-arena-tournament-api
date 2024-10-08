@@ -4,6 +4,8 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ActiveUserInterface } from 'src/common/interfaces/active-user.interface';
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
+import { Auth } from './decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +23,7 @@ export class AuthController {
     }
 
     @Get('profile')
-    //@Auth([Rol.USER])
+    @Auth([Role.ADMIN])
     profile(@ActiveUser() user: ActiveUserInterface) { //@ActiveUser() it's a customized decorator
         console.log(user)
         return this.authService.profile(user);

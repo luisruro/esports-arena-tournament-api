@@ -9,6 +9,6 @@ export class Role {
     @Column({ unique: true })
     role: string;
 
-    @OneToMany(() => User, user => user.rol, {onDelete: 'CASCADE'})
+    @OneToMany(() => User, user => user.role, {onDelete: 'CASCADE'})
     users: User[]
 }
