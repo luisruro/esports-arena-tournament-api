@@ -26,7 +26,8 @@ export class PlayersService {
         const playerFound = await this.playerRepository.findOne({
             where: {
                 id
-            }
+            },
+            relations: ['user']
         });
         
         if (!playerFound) {
