@@ -11,7 +11,9 @@ export class PlayersService {
 
     //This method excludes the players deleted by default
     async findAllPlayers(): Promise<Player[]> {
-        const playerFound = await this.playerRepository.find();
+        const playerFound = await this.playerRepository.find({
+            relations: ['user']
+        });
 
         if (!playerFound) {
             throw new HttpException('No players found', HttpStatus.NOT_FOUND)
