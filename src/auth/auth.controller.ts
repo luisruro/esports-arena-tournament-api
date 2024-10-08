@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ActiveUserInterface } from 'src/common/interfaces/active-user.interface';
+import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 
 @Controller('auth')
 export class AuthController {
