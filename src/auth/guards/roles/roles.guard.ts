@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from 'src/auth/decorators/roles.decorator';
-import { Rol } from 'src/common/enums/role.enum';
+import { Role } from 'src/common/enums/role.enum';
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class RolesGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
 
 
-    const roles = this.reflector.getAllAndOverride<Rol[]>(ROLES_KEY, [
+    const roles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
       context.getClass(),
       context.getHandler(),
     ])
@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     console.log(user); 
     
     //Validating user role
-    if (!user || !user.rol || !roles.includes(user.rol)) {
+    if (!user || !user.role || !roles.includes(user.role)) {
       throw new ForbiddenException('Access denied, you are unauthorized');
     }
 
