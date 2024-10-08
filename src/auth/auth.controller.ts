@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards }
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { ActiveUserInterface } from 'src/common/interfaces/active-user.interface';
 
 @Controller('auth')
 export class AuthController {
