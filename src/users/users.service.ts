@@ -16,7 +16,7 @@ export class UsersService {
     async create(createUserDto: CreateUserDto) {
 
         //Searching the role
-        const roleFound = await this.rolesService.getRoleByRol(createUserDto.rol)
+        const roleFound = await this.rolesService.getRoleByRol(createUserDto.role)
 
         if (!roleFound) {
             throw new HttpException('Role not found, enter a valid role', HttpStatus.NOT_FOUND);
@@ -86,7 +86,7 @@ export class UsersService {
         }
 
         // Searches the role before updating the user
-        const roleFound = await this.rolesService.getRoleByRol(user.rol);
+        const roleFound = await this.rolesService.getRoleByRol(user.role);
 
         if (!roleFound) {
             throw new HttpException('Role not found, enter a valid role', HttpStatus.NOT_FOUND);
