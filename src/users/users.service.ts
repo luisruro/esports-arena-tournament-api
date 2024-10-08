@@ -29,6 +29,9 @@ export class UsersService {
             }
         );
 
+        console.log('Created user from auth.service create method', createdUser);
+        
+
         return await this.usersRepository.save(createdUser);
     }
 
@@ -45,7 +48,7 @@ export class UsersService {
     async findOneByEmailWithPassword(email: string) {
         return await this.usersRepository.findOne({
             where: { email },
-            select: ['id', 'name', 'email', 'password', 'role', 'creationDate', 'player']
+            select: ['id', 'name', 'email', 'password', 'role', 'player', 'creationDate']
         });
     }
 
