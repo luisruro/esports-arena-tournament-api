@@ -36,6 +36,9 @@ $ npm i --save @nestjs/config
 $ npm install --save @nestjs/typeorm pg
 $ npm i --save class-validator class-transformer
 $ npm install --save @nestjs/swagger
+$ npm install --save @nestjs/jwt
+$ npm i bcrypt
+$ npm i -D @types/bcrypt
 ```
 
 ## Project setup with Docker
