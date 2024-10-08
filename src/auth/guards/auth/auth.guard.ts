@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
     //This why I want context object give me info about the incoming request and execution enviroment 
     const request = context.switchToHttp().getRequest();
-    console.log(request.headers.authorization);
+    console.log('request from auth guard: ',request.headers.authorization);
 
     const token = this.extractTokenFromHeader(request);
     

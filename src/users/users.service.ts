@@ -34,7 +34,7 @@ export class UsersService {
 
     async findAll(): Promise<User[]> {
         return await this.usersRepository.find({
-            relations: ['rol', 'player']
+            relations: ['role', 'player']
         });
     }
 
@@ -45,7 +45,7 @@ export class UsersService {
     async findOneByEmailWithPassword(email: string) {
         return await this.usersRepository.findOne({
             where: { email },
-            select: ['id', 'name', 'email', 'password', 'role', 'creationDate', 'player'],
+            select: ['id', 'name', 'email', 'password', 'role', 'creationDate', 'player']
         });
     }
 
@@ -54,7 +54,7 @@ export class UsersService {
             where: {
                 id
             },
-            relations: ['rol', 'player']
+            relations: ['role', 'player']
         });
 
         if (!userFound) {

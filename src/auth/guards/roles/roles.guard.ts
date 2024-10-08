@@ -17,7 +17,7 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
     ])
 
-    console.log(roles);
+    console.log('roles from roles guard: ',roles);
 
     //If no roles are specified, the route or controller is accessible by anyone. It means that rout does not need protection.
     if (!roles) {
@@ -25,7 +25,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const { user } = context.switchToHttp().getRequest();
-    console.log(user); 
+    console.log('user from roles guard: ',user); 
     
     //Validating user role
     if (!user || !user.role || !roles.includes(user.role)) {
