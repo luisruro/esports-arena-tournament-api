@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     console.log('user from roles guard: ',user); 
     
     //Validating user role
-    if (!user || !user.role || !roles.includes(user.role)) {
+    if (!user || !user.role.role || !roles.includes(user.role.role)) {
       throw new ForbiddenException('Access denied, you are unauthorized');
     }
 
