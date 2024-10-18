@@ -25,9 +25,9 @@ export class PlayersController {
         return await this.playersService.findPlayerById(id);
     }
 
-    @Post()
-    async createPlayer(@Body() createPlayerDto: CreatePlayerDto) {
-        return await this.playersService.createPlayer(createPlayerDto);
+    @Post(':id/newPlayer')
+    async createPlayer(@Param('id', ParseUUIDPipe) id:string, @Body() createPlayerDto: CreatePlayerDto) {
+        return await this.playersService.createPlayer(id, createPlayerDto);
     }
 
     @Patch(':id')

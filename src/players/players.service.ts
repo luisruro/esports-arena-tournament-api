@@ -4,10 +4,13 @@ import { Player } from './entities/player.entity';
 import { Repository } from 'typeorm';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PlayersService {
-    constructor(@InjectRepository(Player) private playerRepository: Repository<Player>) { };
+    constructor(@InjectRepository(Player) private playerRepository: Repository<Player>,
+        private readonly userRepository: UsersService
+    ) { };
 
     //This method excludes the players deleted by default
     async findAllPlayers(): Promise<Player[]> {
@@ -29,7 +32,7 @@ export class PlayersService {
             },
             relations: ['user']
         });
-        
+
         if (!playerFound) {
             throw new HttpException(`Player with id ${id} not found`, HttpStatus.NOT_FOUND);
         }
@@ -37,21 +40,22 @@ export class PlayersService {
         return playerFound;
     }
 
-    async createPlayer(player: CreatePlayerDto) {
-        const playerFound = await this.playerRepository.findOne({
-            where: {
-                nickname: player.nickname,
-                dob: player.dob
-            }
-        });
+    async createPlayer(id: string, player: CreatePlayerDto) {
+        const userFound = await this.userRepository.findOne(id);
 
-        if (playerFound) {
-            throw new HttpException(`Player already exists ${player.nickname}`, HttpStatus.CONFLICT);
+        if (!userFound) {
+            throw new HttpException(`User not found`, HttpStatus.NOT_FOUND);
         }
 
-        const newPlayer = await this.playerRepository.create(player)
+        const playerCreated = this.playerRepository.create(player);
 
-        return this.playerRepository.save(newPlayer);
+        const newPlayer = this.playerRepository.create({...player, user: userFound});
+
+        const saveProfile = await this.playerRepository.save(newPlayer);
+
+        userFound.player = saveProfile;
+
+        return playerCreated;
     }
 
     async updatePlayer(id: string, player: UpdatePlayerDto) {
@@ -74,12 +78,12 @@ export class PlayersService {
         //         id
         //     }
         // });
-        
+
         // if (!playerFound) {
         //     throw new HttpException(`Player with id ${id} not found`, HttpStatus.NOT_FOUND);
         // }
-        
-        const result = await this.playerRepository.softDelete({id});
+
+        const result = await this.playerRepository.softDelete({ id });
 
         if (result.affected === 0) {
             throw new HttpException(`Player with id ${id} not found`, HttpStatus.NOT_FOUND);
@@ -91,8 +95,8 @@ export class PlayersService {
     //This method includes the players deleted
     async findAllPlayersIncludingDeleted(): Promise<Player[]> {
         const query = await this.playerRepository.createQueryBuilder('player')
-        .withDeleted()
-        .getMany()
+            .withDeleted()
+            .getMany()
 
         return query;
     }
@@ -100,7 +104,7 @@ export class PlayersService {
     //This method restores a player to active state
     async restorePlayer(id: string) {
         const result = await this.playerRepository.restore(id);
-    
+
         if (result.affected === 0) {
             throw new HttpException('Player not found or not deleted', HttpStatus.NOT_FOUND);
         }
