@@ -10,7 +10,7 @@ import { User } from 'src/users/entities/user.entity';
 @Injectable()
 export class PlayersService {
     constructor(@InjectRepository(Player) private playerRepository: Repository<Player>,
-    @InjectRepository(User) private readonly usersRepository: Repository<User>
+        private readonly usersService: UsersService
     ) { };
 
     //This method excludes the players deleted by default
@@ -41,26 +41,36 @@ export class PlayersService {
         return playerFound;
     }
 
-    async createPlayer(id: string, player: CreatePlayerDto) {
-        const userFound = await this.usersRepository.findOne({
-            where: {
-                id
-            }
-        });
+    async createPlayer(userId: string, createPlayerDto: CreatePlayerDto) {
+        //Get the user
+        const userFound = await this.findUserOrFail(userId);
 
-        if (!userFound) {
-            throw new HttpException(`User not found`, HttpStatus.NOT_FOUND);
+        //Create and save the player
+        const player = this.playerRepository.create({
+            ...createPlayerDto,
+            user: userFound
+        });
+        const savedPlayer = await this.playerRepository.save(player);
+
+        //Associate the player with the user and save the updated user
+        return await this.associatePlayerwithUser(userFound, savedPlayer);
+
+    }
+
+    //Private method to search the user if not throw exception
+    private async findUserOrFail(id: string): Promise<User> {
+        const user = await this.usersService.findOne(id);
+        if (!user) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         }
 
-        const playerCreated = this.playerRepository.create(player);
+        return user;
+    }
 
-        const newPlayer = this.playerRepository.create({...player, user: userFound});
-
-        const saveProfile = await this.playerRepository.save(newPlayer);
-
-        userFound.player = saveProfile;
-
-        return this.usersRepository.save(userFound);
+    //Private method to associate Player with User
+    private async associatePlayerwithUser(user: User, player: Player) {
+        user.player = player;
+        return await this.usersService.updateUserToAssociateWithPlayer(user.id, {player});
     }
 
     async updatePlayer(id: string, player: UpdatePlayerDto) {

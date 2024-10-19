@@ -30,7 +30,7 @@ export class UsersService {
         );
 
         console.log('Created user from auth.service create method', createdUser);
-        
+
 
         return await this.usersRepository.save(createdUser);
     }
@@ -101,6 +101,17 @@ export class UsersService {
             ...user,
             role: roleFound, // Assigning the object Role
         });
+    }
+
+    //Method to update User to associate it with Player
+    async updateUserToAssociateWithPlayer(id: string, updateData: Partial<User>) {
+        const result = await this.usersRepository.update(id, updateData);
+
+        if (result.affected === 0) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+
+        return await this.usersRepository.findOne({ where: { id }, relations: ['role', 'player'] });
     }
 }
 
