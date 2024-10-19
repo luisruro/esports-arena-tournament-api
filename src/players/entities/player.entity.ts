@@ -15,7 +15,7 @@ export class Player {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToOne(() => User, {onDelete: 'CASCADE'})
+    @OneToOne(() => User, user => user.player, {onDelete: 'CASCADE'})
     @JoinColumn()
     user: User
 

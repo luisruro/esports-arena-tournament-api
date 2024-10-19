@@ -39,7 +39,7 @@ export class UsersController {
     @ApiResponse({ status: 200, description: 'User has been deleted' })
     @ApiResponse({ status: 404, description: 'User has not been found' })
     async deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-        await this.usersService.deleteUser(id);
+        return await this.usersService.deleteUser(id);
     }
 
     @Patch(':id')
@@ -47,7 +47,7 @@ export class UsersController {
     @ApiResponse({ status: 200, description: 'User has been updated' })
     @ApiResponse({ status: 404, description: 'User has not been found' })
     async updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: CreateUserDto) {
-        await this.usersService.updateUser(id, user);
+        return await this.usersService.updateUser(id, user);
     }
 }
 

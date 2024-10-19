@@ -5,11 +5,12 @@ import { Repository } from 'typeorm';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class PlayersService {
     constructor(@InjectRepository(Player) private playerRepository: Repository<Player>,
-        private readonly userRepository: UsersService
+    @InjectRepository(User) private readonly usersRepository: Repository<User>
     ) { };
 
     //This method excludes the players deleted by default
@@ -41,7 +42,11 @@ export class PlayersService {
     }
 
     async createPlayer(id: string, player: CreatePlayerDto) {
-        const userFound = await this.userRepository.findOne(id);
+        const userFound = await this.usersRepository.findOne({
+            where: {
+                id
+            }
+        });
 
         if (!userFound) {
             throw new HttpException(`User not found`, HttpStatus.NOT_FOUND);
@@ -55,7 +60,7 @@ export class PlayersService {
 
         userFound.player = saveProfile;
 
-        return playerCreated;
+        return this.usersRepository.save(userFound);
     }
 
     async updatePlayer(id: string, player: UpdatePlayerDto) {

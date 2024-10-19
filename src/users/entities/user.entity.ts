@@ -20,7 +20,7 @@ export class User {
     @JoinColumn()
     role: Role
 
-    @OneToOne(() => Player, {onDelete: 'CASCADE'})
+    @OneToOne(() => Player, player => player.user, {onDelete: 'CASCADE'})
     @JoinColumn()
     player: Player
 
