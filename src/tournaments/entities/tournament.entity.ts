@@ -1,4 +1,5 @@
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { TournamentPlayer } from "src/matches/entities/tournament-player.entity";
+import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('tournaments')
 export class Tournament {
@@ -16,6 +17,10 @@ export class Tournament {
 
     @Column()
     endDate: string;
+
+    // Relación con los jugadores del torneo
+    @OneToMany(() => TournamentPlayer, (tournamentPlayer) => tournamentPlayer.tournament)
+    tournamentPlayers: TournamentPlayer[];
 
     //This column to do soft delete
     @DeleteDateColumn()
