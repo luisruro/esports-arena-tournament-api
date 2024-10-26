@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param, ParseUUIDPipe, Post, Query } from '@nestjs/common';
+import { MatchesService } from './matches.service';
 
 @Controller('matches')
-export class MatchesController {}
+export class MatchesController {
+    constructor(private readonly matchesService: MatchesService) { }
+
+    @Post(':tournamentId/randomMatch')
+    enrollRandomPlayers(@Param('tournamentId', ParseUUIDPipe) tournamentId: string, @Query('quantity') quantity: number) {
+        return this.matchesService.enrollRandomPlayers(tournamentId, quantity);
+    }
+}

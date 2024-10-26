@@ -7,7 +7,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
-@Auth([Role.ADMIN])
+//@Auth([Role.ADMIN])
 export class UsersController {
     constructor(private readonly usersService: UsersService) {};
 

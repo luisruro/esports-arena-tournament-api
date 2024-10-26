@@ -27,7 +27,9 @@ export class TournamentsService {
     }
 
     async getAllTournaments(): Promise<Tournament[]> {
-        const tournamentFound = await this.tournamentRepository.find();
+        const tournamentFound = await this.tournamentRepository.find({
+            relations: ['tournamentPlayers', 'tournamentPlayers.player']
+        });
 
         if (!tournamentFound) {
             throw new HttpException('No tournaments found.', HttpStatus.NOT_FOUND);
@@ -40,7 +42,8 @@ export class TournamentsService {
         const tournamentFound = await this.tournamentRepository.findOne({
             where: {
                 id
-            }
+            },
+            relations: ['tournamentPlayers', 'tournamentPlayers.player']
         });
 
         if (!tournamentFound) {
