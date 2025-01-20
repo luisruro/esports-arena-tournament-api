@@ -28,7 +28,7 @@ export class MatchesService {
 
         // Si el número solicitado de jugadores excede la cantidad disponible, ajusta el conteo
         if (quantity > players.length) {
-            quantity = players.length;
+            quantity = players.length
         }
 
         // Randomly select players
@@ -54,8 +54,14 @@ export class MatchesService {
             relations: ['tournament', 'tournament.tournamentPlayers', 'tournament.tournamentPlayers.player']
         });
 
-        if (!matchesFound) {
+        if (!matchesFound || matchesFound.length === 0) {
             throw new HttpException('No matches found.', HttpStatus.NOT_FOUND);
+        }
+
+        const validMatches = matchesFound.filter(match => match.tournament !== null);
+
+        if (validMatches.length === 0) {
+            throw new HttpException('No valid matches found with tournaments.', HttpStatus.NOT_FOUND);
         }
 
         const result = this.groupTournamentPlayers(matchesFound);
@@ -66,6 +72,11 @@ export class MatchesService {
         const tournamentsMap = new Map();
 
         matches.forEach((match) => {
+            if (!match.tournament) {
+                console.warn(`Match without tournament found: ${JSON.stringify(match)}`);
+                return; // Salta este match si no tiene un torneo asociado
+            }
+
             const tournamentId = match.tournament.id;
 
             // Si el torneo no ha sido agregado aún al mapa

@@ -21,7 +21,7 @@ export class RolesController {
 
     @Delete(':id')
     deleteRole(@Param('id', ParseUUIDPipe) id: string) {
-        this.rolesService.deleteRole(id);
+        return this.rolesService.deleteRole(id);
     }
 
     @Patch(':id')
