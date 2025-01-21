@@ -8,6 +8,7 @@ import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { MatchesModule } from './matches/matches.module';
+import { ResultsModule } from './results/results.module';
 
 
 @Module({
@@ -32,6 +33,7 @@ import { MatchesModule } from './matches/matches.module';
     AuthModule,
     TournamentsModule,
     MatchesModule,
+    ResultsModule,
   ]
 })
 export class AppModule {}
