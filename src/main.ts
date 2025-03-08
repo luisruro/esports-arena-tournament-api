@@ -14,7 +14,16 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('eSports Arena')
-    .setDescription('plataforma de torneos de eSports Arena')
+    .setDescription(
+      'This API enables the management of eSports tournaments, allowing for efficient ' +
+      'handling of players, tournaments, and match results. \n\n' +
+      '### Main Features: \n' +
+      '- Player registration and management. \n' +
+      '- Tournament creation and administration. \n' +
+      '- Match result recording and retrieval. \n' +
+      '- Automatic match pairing generation. \n\n' +
+      '🔗 Documentation generated with Swagger.'
+    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

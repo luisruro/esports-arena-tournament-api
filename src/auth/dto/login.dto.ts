@@ -1,13 +1,23 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
 
 export class LoginDto {
-
+    @ApiProperty({
+        description: "User's email address",
+        example: "johndoe@example.com",
+        format: "email",
+    })
     @IsNotEmpty({ message: 'Email is required and must be a valid email address' })
     @IsString()
     @IsEmail({}, { message: 'Please provide a valid email address' })
     email: string;
 
+    @ApiProperty({
+        description: "User's password (must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character)",
+        example: "SecurePass123!",
+        minLength: 8,
+    })
     @IsNotEmpty({ message: 'Password is required and must be a valid password: at least 8 characters, 1 upper case, at least one digit from (0-9) and at least one special character' })
     @IsString()
     @IsStrongPassword({}, { message: 'Please provide a valid password: at least 8 characters, at least 1 upper case, at least one digit from (0-9) and at least one special character' })
