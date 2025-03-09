@@ -27,8 +27,8 @@ Make sure you have the following installed:
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/esports-arena.git
-cd esports-arena
+git clone https://github.com/yourusername/esports-arena-tournament-api.git
+cd esports-arena-tournament-api
 
 # Install dependencies
 npm install
