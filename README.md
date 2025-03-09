@@ -1,38 +1,41 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# eSports Arena - Tournament Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+🚀 **eSports Arena** is a tournament management platform designed for eSports competitions. It allows players to register, participate in tournaments, track results, and manage scores.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📌 Features
+- **Player Management**: Register, update, and delete player profiles.
+- **Tournament Management**: Create and manage tournaments with start and end dates.
+- **Match Results**: Record and retrieve match results, including winners and scores.
+- **Secure Authentication**: User authentication with role-based access control.
 
-## Description
+## 🛠️ Tech Stack
+- **Backend**: NestJS (TypeScript)
+- **Database**: PostgreSQL (TypeORM)
+- **Authentication**: JWT & bcrypt
+- **API Documentation**: Swagger
+- **Containerization**: Docker & Docker Compose
+- **Version Control**: Git & GitHub
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Getting Started
 
-## Remember you must set up your environment variables before running the project. You will find .env.template file in the respository
-## You must create the roles first
+### Prerequisites
+Make sure you have the following installed:
+- [Node.js](https://nodejs.org/)
+- [Docker & Docker Compose](https://www.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/) (if running locally)
 
-## Project setup
-
+### Installation
 ```bash
-$ npm install
+# Clone the repository
+git clone https://github.com/yourusername/esports-arena.git
+cd esports-arena
+
+# Install dependencies
+npm install
+```
+
+### Installed Dependencies
+```bash
 $ npm i --save @nestjs/config
 $ npm install --save @nestjs/typeorm pg
 $ npm i --save class-validator class-transformer
@@ -42,34 +45,41 @@ $ npm i bcrypt
 $ npm i -D @types/bcrypt
 ```
 
-## Project setup with Docker
-
-```bash
-$ docker-compose up -d
+### Environment Variables
+Create a `.env` file in the root directory and configure it as follows:
+```env
+POSTGRES_HOST="localhost"
+POSTGRES_PORT=5432
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=your_database
+JWT_SECRET=your_jwt_secret
+PORT=3000
+DATABASE_URL=postgresql://user:password@localhost:5432/database
 ```
 
-## Compile and run the project
-
+### Running the Application
+#### Using Docker (Recommended)
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker-compose up -d
+```
+#### Running Locally
+```bash
+# Start the server
+npm run start:dev
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### API Documentation
+Once the server is running, access **Swagger UI** at:
 ```
+http://localhost:3000/api
+```
+
+## 🛠️ Development & Contribution
+Feel free to fork the repository and submit pull requests. Any contributions are welcome! 🎮
+
+---
+
+💡 **Author:** [Luis Eugenio Rubio Romero](https://github.com/luisruro)  
+💎 **Contact:** lerubioromero@gmail.com
+
